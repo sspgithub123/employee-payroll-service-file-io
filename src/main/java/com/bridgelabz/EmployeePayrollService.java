@@ -5,6 +5,23 @@ package com.bridgelabz;
  *         - Create Employee Payroll Class of id, name and Salary
  *         - Read the information from the console
  *         - Finally write the employee payroll to the console
+ *  UC2 :- Write a program to demonstrate File Operations like
+ *         - Check File Exists
+ *         - Delete File and Check File Not Exist
+ *         - Create Directory
+ *         - Create Empty File
+ *         - List Files, Directories as well as Files with Extension
+ *  UC3 :- Create a Watch Service to watch particular directory along with all Files and Sub Directories
+ *         - Using File IO Count Number of Entries in the File
+ *  UC4 :- Create an Employee Payroll Service to store Employee Payroll into a File
+ *         - Create Employee Payroll Class of id, name and Salary
+ *         - Populate Test Employee Payroll Object
+ *         - Write Employee Payroll to File Use File IO
+ *         - Count Number of Entries to ensure the Operation worked
+ *  UC5 :- Ability for Employee Payroll Service to printPayroll Service to print the Employee Payrolls
+ *         - Using File IO print the lines in the Payroll File
+ *         - Count Number of Entries to ensure the Operation  worked
+ *
  */
 
 /**
@@ -20,6 +37,12 @@ import java.util.Scanner;
  * creating class name as  EmployeePayrollService
  */
 public class EmployeePayrollService {
+    /**
+     * create enum class name as IOService
+     */
+    public enum IOService{
+        CONSOLE_IO, FILE_IO, DB_IO, REST_IO;
+    }
     /**
      * create list
      */
@@ -47,11 +70,14 @@ public class EmployeePayrollService {
      * create a method name as write
      * Method to print data back to console
      */
-    private void write() {
+    void write(IOService ioService) {
+        if(ioService.equals(ioService.CONSOLE_IO))
         /**
          * display the employee data in store in employeePayrollList
          */
-        System.out.println("Given Employee Data is : " + employeePayrollList);
+            System.out.println("Given Employee Data is : " + employeePayrollList);
+        else if(ioService.equals(ioService.FILE_IO))
+            new EmployeePayrollFileIOService().writeData(employeePayrollList);
     }
 
     /**
@@ -110,7 +136,24 @@ public class EmployeePayrollService {
         /**
          * calling write method from object name as employeePayrollService
          */
-        employeePayrollService.write();
+        employeePayrollService.write(IOService.CONSOLE_IO);
+    }
 
+    /**
+     *  create a method name as countEntries
+     * @param fileIo
+     * @return employeepayrolllist
+     */
+    public long countEntries(IOService fileIo) {
+
+        return new EmployeePayrollFileIOService().countEntries(employeePayrollList);
+    }
+
+    /**
+     * create a method name as printData
+     * @param fileIo print data in file io
+     */
+    public void printData(IOService fileIo) {
+        new EmployeePayrollFileIOService().printData((employeePayrollList));
     }
 }
