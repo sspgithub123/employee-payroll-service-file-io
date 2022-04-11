@@ -21,7 +21,8 @@ package com.bridgelabz;
  *  UC5 :- Ability for Employee Payroll Service to printPayroll Service to print the Employee Payrolls
  *         - Using File IO print the lines in the Payroll File
  *         - Count Number of Entries to ensure the Operation  worked
- *
+ *  UC6 :- Ability for Employee Payroll Service to read the Employee Payroll File so that some analysis can be performed
+ *         - Using File IO read the file
  */
 
 /**
@@ -110,7 +111,37 @@ public class EmployeePayrollService {
          */
         employeePayrollList.add(empData);
     }
+    /**
+     * create a method name as countEntries
+     * Counting total number of entries into the payroll list
+     * @param fileIo
+     * @return employeepayrolllist
+     */
+    public long countEntries(IOService fileIo) {
+        return new EmployeePayrollFileIOService().countEntries(employeePayrollList);
+    }
 
+    /**
+     * create a method name as printData
+     * Printing all the entries of PayrollList
+     * @param fileIo print data in file io
+     */
+    public void printData(IOService fileIo) {
+        if (fileIo.equals(IOService.FILE_IO))
+            new EmployeePayrollFileIOService().printData((employeePayrollList));
+    }
+
+    /**
+     * Reading the employee payroll list so that we can do any operation
+     * @param fileIo read d deta in file io
+     * @return list of operation
+     */
+    public long readEmployeeData(IOService fileIo) {
+        List<String> list=new ArrayList<>();
+        if (fileIo.equals(IOService.FILE_IO))
+            list = new EmployeePayrollFileIOService().readData();
+        return list.size();
+    }
     /**
      *  create a main method, all program execute in main method
      * @param args no arguments
@@ -137,23 +168,5 @@ public class EmployeePayrollService {
          * calling write method from object name as employeePayrollService
          */
         employeePayrollService.write(IOService.CONSOLE_IO);
-    }
-
-    /**
-     *  create a method name as countEntries
-     * @param fileIo
-     * @return employeepayrolllist
-     */
-    public long countEntries(IOService fileIo) {
-
-        return new EmployeePayrollFileIOService().countEntries(employeePayrollList);
-    }
-
-    /**
-     * create a method name as printData
-     * @param fileIo print data in file io
-     */
-    public void printData(IOService fileIo) {
-        new EmployeePayrollFileIOService().printData((employeePayrollList));
     }
 }
