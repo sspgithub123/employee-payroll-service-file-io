@@ -55,6 +55,10 @@ public class EmployeePayrollFileIOService {
         return entries;
     }
 
+    /**
+     * create a method name as printData
+     * @param employeePayrollList all data store
+     */
     public void printData(List<EmployeePayrollData> employeePayrollList) {
         try {
             Files.lines(new File(PAYROLL_FILE_NAME).toPath()).forEach(System.out::println);
@@ -62,4 +66,20 @@ public class EmployeePayrollFileIOService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * create a method name as read data
+     * @return employeepayrolllist
+     */
+    public List<String> readData() {
+        List<String> employeePayrollList = new ArrayList<>();
+        try {
+            Files.lines(new File(PAYROLL_FILE_NAME).toPath()).map(line -> line.trim())
+                    .forEach(line -> employeePayrollList.add(line));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return employeePayrollList;
+    }
+
 }
